@@ -1,11 +1,11 @@
-import { type Product } from "@/models/product";
+import { type ProductItem as ProductItemType } from "@/models/product";
 import { ProductItem } from "@/ui/molecules/ProductItem";
 
-interface ProductListProps {
-	products: Product[];
+interface ProductsListProps {
+	products: ProductItemType[];
 }
 
-export const ProductList = ({ products }: ProductListProps) => {
+export const ProductsList = ({ products }: ProductsListProps) => {
 	return (
 		<ul
 			className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"

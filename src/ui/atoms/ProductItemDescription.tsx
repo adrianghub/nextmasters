@@ -1,7 +1,7 @@
-import { type Product } from "@/models/product";
+import { type ProductItem } from "@/models/product";
 import { formatCurrency } from "@/utils";
 
-export const ProductItemDescription = ({ name, category, price }: Product) => {
+export const ProductItemDescription = ({ name, category, price }: ProductItem) => {
 	return (
 		<div className="mt-2 flex justify-between">
 			<h3 className="text-sm font-semibold text-gray-700">{name}</h3>
