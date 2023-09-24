@@ -1,3 +1,5 @@
+import { ProductsGetDocument } from "@/gql/graphql";
+import { executeGraphql } from "@/gql/utils";
 import { type ProductItem, type ProductResponseItem } from "@/models/product";
 
 export const getProducts = async ({
@@ -43,3 +45,19 @@ const productResponseToProduct = (productResponse: ProductResponseItem): Product
 	},
 	category: productResponse.category,
 });
+
+export const getProductsGql = async (): Promise<ProductItem[]> => {
+	const gqlResponse = await executeGraphql(ProductsGetDocument);
+
+	return gqlResponse.products.map((product) => ({
+		id: product.id,
+		name: product.name,
+		description: product.description,
+		price: product.price,
+		coverImage: {
+			src: product.images[0]?.url || "",
+			alt: product.name,
+		},
+		category: product.categories[0]?.name || "",
+	}));
+};

@@ -25,3 +25,17 @@ export type Rating = {
 	rate: number;
 	count: number;
 };
+
+export interface Root {
+	data: {
+		products: {
+			id: string;
+			name: string;
+			description: string;
+			images: {
+				url: string;
+			}[];
+			price: number;
+		}[];
+	};
+}

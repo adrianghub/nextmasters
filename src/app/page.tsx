@@ -1,11 +1,11 @@
-import { getProducts } from "@/api/products";
+import { getProductsGql } from "@/api/products";
 import { type ProductItem } from "@/models/product";
 import { ProductsList } from "@/components/ui/organisms/ProductsList";
 import { Button } from "@/components/ui/button";
 import { ActiveLink } from "@/components/ui/atoms/ActiveLink";
 
 const HomePage = async () => {
-	const products: ProductItem[] = await getProducts({ page: 1, limit: 4 });
+	const products: ProductItem[] = await getProductsGql();
 
 	return (
 		<div className="flex flex-col items-center">
