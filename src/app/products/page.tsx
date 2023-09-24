@@ -1,9 +1,7 @@
-import { getProducts } from "@/api/products";
-import { type ProductItem } from "@/models/product";
-import { ProductsList } from "@/ui/organisms/ProductsList";
+import { redirect } from "next/navigation";
 
-export default async function ProductsPage() {
-	const products: ProductItem[] = await getProducts();
+const Page = async () => {
+	return redirect("/products/1");
+};
 
-	return <ProductsList products={products} />;
-}
+export default Page;
