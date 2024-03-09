@@ -1,4 +1,5 @@
 {
+	"schema": "https://json.schemastore.org/tsconfig",
 	"compilerOptions": {
 		"target": "es2022",
 		"lib": ["dom", "dom.iterable", "esnext"],
@@ -14,6 +15,7 @@
 		"jsx": "preserve",
 		"incremental": true,
 		"allowUnreachableCode": true,
+		"noUncheckedIndexedAccess": true,
 		"plugins": [
 			{
 				"name": "next"

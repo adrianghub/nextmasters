@@ -1,6 +1,6 @@
-import { getProducts, getProductsTotal } from "@/api/products";
-import { Pagination } from "@/components/ui/organisms/Pagination";
-import { ProductsList } from "@/components/ui/organisms/ProductsList";
+import { Pagination } from "@/app/(core)/_components/organisms/Pagination";
+import { ProductsList } from "@/app/(products)/_components/organisms/ProductsList";
+import { getProducts, getProductsTotal } from "@/lib/api/products";
 
 export default async function ProductsPage({ params }: { params: { page: string } }) {
 	const products = await getProducts({ page: +params.page });
@@ -10,7 +10,9 @@ export default async function ProductsPage({ params }: { params: { page: string 
 
 	return (
 		<>
-			<ProductsList products={products} />
+			<div className="mb-12">
+				<ProductsList products={products} />
+			</div>
 			<Pagination currentPage={+params.page} numberOfPages={numberOfPages} />
 		</>
 	);

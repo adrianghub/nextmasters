@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import clsx from "clsx";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { type ComponentProps } from "react";
 
@@ -10,7 +10,13 @@ type ActiveLinkProps = ComponentProps<typeof Link> & {
 	exact?: boolean;
 };
 
-export const ActiveLink = ({ href, activeClassName, exact = false, ...props }: ActiveLinkProps) => {
+export const ActiveLink = ({
+	href,
+	activeClassName,
+	exact = false,
+	children,
+	...props
+}: ActiveLinkProps) => {
 	const pathname = usePathname();
 	const matchedPath = (typeof href === "string" ? href : href.pathname) ?? null;
 
@@ -23,11 +29,13 @@ export const ActiveLink = ({ href, activeClassName, exact = false, ...props }: A
 		<Link
 			href={href}
 			className={clsx(
-				props.className || "text-blue-400 hover:text-blue-600",
-				isActive && (activeClassName || "text-blue-600 underline"),
+				"h-full hover:text-blue-600",
+				props.className,
+				isActive && (activeClassName || "border-b border-blue-400 text-blue-400"),
 			)}
+			aria-current={isActive ? "page" : undefined}
 		>
-			{props.children}
+			{children}
 		</Link>
 	);
 };

@@ -1,5 +1,5 @@
+import { ProductItem } from "../molecules/ProductItem";
 import { type ProductItem as ProductItemType } from "@/models/product";
-import { ProductItem } from "@/components/ui/molecules/ProductItem";
 
 interface ProductsListProps {
 	products: ProductItemType[];

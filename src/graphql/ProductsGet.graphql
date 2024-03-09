@@ -1,14 +1,16 @@
 query ProductsGet {
-	products(first: 10) {
-		id
-		name
-		description
-		categories(first: 1) {
+	products(take: 10) {
+		data {
+			id
 			name
+			description
+			categories {
+				name
+			}
+			images {
+				url
+			}
+			price
 		}
-		images(first: 1) {
-			url
-		}
-		price
 	}
 }

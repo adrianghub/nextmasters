@@ -1,14 +1,14 @@
-import { getProductsGql } from "@/api/products";
+import { ActiveLink } from "./(core)/_components/atoms/ActiveLink";
+import { Button } from "@/lib/ui/button";
+import { ProductsList } from "@/app/(products)/_components/organisms/ProductsList";
 import { type ProductItem } from "@/models/product";
-import { ProductsList } from "@/components/ui/organisms/ProductsList";
-import { Button } from "@/components/ui/button";
-import { ActiveLink } from "@/components/ui/atoms/ActiveLink";
+import { getProducts } from "@/lib/api/products";
 
 const HomePage = async () => {
-	const products: ProductItem[] = await getProductsGql();
+	const products: ProductItem[] = await getProducts();
 
 	return (
-		<div className="flex flex-col items-center">
+		<div className="flex flex-col items-center gap-4">
 			<ProductsList products={products} />
 			<Button>
 				<ActiveLink href="/products">See all products</ActiveLink>

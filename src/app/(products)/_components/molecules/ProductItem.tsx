@@ -1,9 +1,9 @@
-import Link from "next/link";
 import { type Metadata } from "next";
+import Link from "next/link";
+import { ProductCoverImage } from "@/app/(products)/_components/atoms/ProductCoverImage";
+import { ProductItemDescription } from "@/app/(products)/_components/atoms/ProductItemDescription";
 import { type ProductItem as ProductItemType } from "@/models/product";
-import { ProductCoverImage } from "@/components/ui/atoms/ProductCoverImage";
-import { ProductItemDescription } from "@/components/ui/atoms/ProductItemDescription";
-import { getProductById } from "@/api/products";
+import { getProductById } from "@/lib/api/products";
 
 export const generateMetadata = async ({
 	params,
@@ -25,7 +25,10 @@ export const ProductItem = (product: ProductItemType) => {
 			<Link href={`/product/${product.id}`}>
 				<article>
 					<ProductCoverImage {...product.coverImage} />
-					<ProductItemDescription {...product} />
+					<h3 className="mt-4 text-sm font-semibold">{product.name}</h3>
+					<div className="flex justify-between">
+						<ProductItemDescription {...product} />
+					</div>
 				</article>
 			</Link>
 		</li>

@@ -1,4 +1,4 @@
-import { type TypedDocumentString } from "./graphql";
+import { type TypedDocumentString } from "@/gql/graphql";
 
 export type GraphQLResponse<T> =
 	| { data?: undefined; errors: { message: string }[] }
@@ -8,11 +8,11 @@ export const executeGraphql = async <TResult, TVariables>(
 	query: TypedDocumentString<TResult, TVariables>,
 	...[variables]: TVariables extends Record<string, never> ? [] : [TVariables]
 ): Promise<TResult> => {
-	if (!process.env.GRAPHQL_URL) {
-		throw TypeError("GRAPHQL_URL is not defined");
+	if (!process.env.GRAPHQL_PRODUCTS_URL) {
+		throw TypeError("GRAPHQL_PRODUCTS_URL is not defined");
 	}
 
-	const res = await fetch(process.env.GRAPHQL_URL, {
+	const res = await fetch(process.env.GRAPHQL_PRODUCTS_URL!, {
 		method: "POST",
 		body: JSON.stringify({
 			query,

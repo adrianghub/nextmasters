@@ -9,8 +9,12 @@
 		"baseColor": "neutral",
 		"cssVariables": true
 	},
+	"components": {
+		"dir": "src/lib/ui",
+		"ext": "tsx"
+	},
 	"aliases": {
-		"components": "@/components",
-		"utils": "@/lib/utils"
+		"components": "@/lib/ui",
+		"utils": "@/app/(core)/_utils/styles"
 	}
 }

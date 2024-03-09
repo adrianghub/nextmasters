@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
+import clsx from "clsx";
 import { Inter } from "next/font/google";
-import { ActiveLink } from "@/components/ui/atoms/ActiveLink";
 import "./globals.css";
+import { Navbar } from "./(core)/_components/organisms/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -12,25 +13,16 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
-		<html lang="en">
-			<body className={inter.className}>
-				<nav>
-					<ul className="flex justify-center space-x-4 py-4">
-						<li>
-							<ActiveLink href="/" exact>
-								Home
-							</ActiveLink>
-						</li>
-						<li>
-							<ActiveLink href="/products">Products</ActiveLink>
-						</li>
-					</ul>
-				</nav>
-				<main className="mx-auto max-w-md p-12 sm:max-w-2xl sm:py-16 md:max-w-4xl lg:max-w-7xl">
+		<html lang="en" className="h-full">
+			<body className={clsx(inter.className, "h-full")}>
+				<Navbar />
+				<main className="mx-auto min-h-full max-w-md p-12 sm:max-w-2xl sm:py-16 md:max-w-4xl lg:max-w-7xl">
 					{children}
 				</main>
 
-				<footer className="text-center text-sm text-gray-500">© 2023</footer>
+				<footer className="py-4 text-center text-sm text-gray-500">
+					© {new Date().getFullYear()}
+				</footer>
 			</body>
 		</html>
 	);

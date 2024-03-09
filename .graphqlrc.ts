@@ -1,25 +1,24 @@
-import { loadEnvConfig } from "@next/env";
 import type { CodegenConfig } from "@graphql-codegen/cli";
+import { loadEnvConfig } from "@next/env";
 
 loadEnvConfig(process.cwd());
 
 const config: CodegenConfig = {
 	overwrite: true,
-	schema: process.env.GRAPHQL_URL,
-	documents: "src/graphql/*.graphql",
+	schema: process.env.GRAPHQL_PRODUCTS_URL,
+	documents: "src/graphql/**/*.graphql",
 	ignoreNoDocuments: true,
 	generates: {
 		"src/gql/": {
 			preset: "client",
-			presetConfig: {},
-			plugins: [],
 			config: {
-				documentMode: "string",
-				defaultScalarType: "unknown",
 				useTypeImports: true,
+				defaultScalarType: "unknown",
 				skipTypename: true,
 				enumsAsTypes: true,
+				documentMode: "string",
 			},
+			plugins: [],
 		},
 	},
 };

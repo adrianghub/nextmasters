@@ -1,5 +1,5 @@
+import { generatePaginationLinks } from "../../_utils/pagination";
 import { ActiveLink } from "../atoms/ActiveLink";
-import { generatePaginationLinks } from "@/lib/utils";
 
 export const Pagination = ({
 	currentPage,
@@ -15,7 +15,7 @@ export const Pagination = ({
 	const pagesToShow = generatePaginationLinks(currentPage, numberOfPages);
 
 	return (
-		<div className="my-4 grid place-content-center">
+		<div className="grid place-content-center">
 			<ul className="flex w-full gap-4">
 				{pagesToShow.map((page) => (
 					<li key={page}>
