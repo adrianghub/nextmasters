@@ -1,12 +1,14 @@
 import { Pagination } from "@/app/(core)/_components/organisms/Pagination";
 import { ProductsList } from "@/app/(products)/_components/organisms/ProductsList";
-import { getProducts, getProductsTotal } from "@/lib/api/products";
+import { getProducts } from "@/lib/api/products";
 
 export default async function ProductsPage({ params }: { params: { page: string } }) {
-	const products = await getProducts({ page: +params.page });
-	const productsTotal = await getProductsTotal();
+	const products = await getProducts({
+		skip: (+params.page - 1) * 10,
+	});
+	const productsTotal = 14; // mocked
 
-	const numberOfPages = Math.ceil(productsTotal / 20);
+	const numberOfPages = Math.ceil(productsTotal / 10);
 
 	return (
 		<>

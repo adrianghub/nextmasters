@@ -1,16 +1,7 @@
-query ProductsGet {
-	products(take: 10) {
+query ProductsGet($take: Int!, $skip: Int!) {
+	products(take: $take, skip: $skip) {
 		data {
-			id
-			name
-			description
-			categories {
-				name
-			}
-			images {
-				url
-			}
-			price
+			...ProductItem
 		}
 	}
 }

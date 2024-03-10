@@ -22,6 +22,8 @@ export const Pagination = ({
 						{page === "..." ? (
 							<span>{page}</span>
 						) : (
+							// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+							// @ts-ignore
 							<ActiveLink href={`/products/${page}`} exact>
 								{page}
 							</ActiveLink>
