@@ -31,7 +31,7 @@ const SingleProductPage = async ({ params }: { params: { productId: string } }) 
 	const product = await getProductById(params.productId);
 
 	if (!product) {
-		// return notFound();
+		return notFound();
 	}
 
 	async function addToCartAction() {

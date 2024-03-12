@@ -3,8 +3,10 @@ import { redirect } from "next/navigation";
 import React from "react";
 import { ProductQuantity } from "./_components/molecules/ProductQuantity";
 import RemoveProductButton from "./_components/atoms/RemoveProductButton";
+import { handlePaymantAction } from "./_actions/handlePayment.action";
 import { formatCurrency } from "@/app/(core)/_utils/common";
 import { getCartById } from "@/lib/api/cart";
+import { Button } from "@/lib/ui/button";
 
 const CartPage = async () => {
 	const cartId = cookies().get("cartId")?.value;
@@ -50,6 +52,9 @@ const CartPage = async () => {
 					})}
 				</tbody>
 			</table>
+			<form action={handlePaymantAction}>
+				<Button type="submit">Make an order</Button>
+			</form>
 		</div>
 	);
 };

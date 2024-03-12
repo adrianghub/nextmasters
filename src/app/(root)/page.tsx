@@ -1,6 +1,6 @@
 import { ActiveLink } from "../../app/(core)/_components/atoms/ActiveLink";
-import { Button } from "@/lib/ui/button";
 import { ProductsList } from "../(products)/_components/organisms/ProductsList";
+import { Button } from "@/lib/ui/button";
 import { getProducts } from "@/lib/api/products";
 import { type ProductItemFragment } from "@/gql/graphql";
 
