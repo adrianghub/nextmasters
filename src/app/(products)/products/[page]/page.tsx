@@ -1,5 +1,5 @@
 import { Pagination } from "@/app/(core)/_components/organisms/Pagination";
-import { ProductsList } from "@/app/(products)/_components/organisms/ProductsList";
+import { ProductsList } from "../../_components/organisms/ProductsList";
 import { getProducts } from "@/lib/api/products";
 
 export default async function ProductsPage({ params }: { params: { page: string } }) {

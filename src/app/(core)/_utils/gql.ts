@@ -4,10 +4,22 @@ export type GraphQLResponse<T> =
 	| { data?: undefined; errors: { message: string }[] }
 	| { data: T; errors?: undefined };
 
-export const executeGraphql = async <TResult, TVariables>(
-	query: TypedDocumentString<TResult, TVariables>,
-	...[variables]: TVariables extends Record<string, never> ? [] : [TVariables]
-): Promise<TResult> => {
+type Params<TResult, TVariables> = {
+	query: TypedDocumentString<TResult, TVariables>;
+	cache?: RequestCache;
+	next?: NextFetchRequestConfig | undefined;
+	headers?: HeadersInit;
+} & (TVariables extends { [key: string]: never }
+	? { variables?: never }
+	: { variables: TVariables });
+
+export const executeGraphql = async <TResult, TVariables>({
+	query,
+	variables,
+	cache,
+	next,
+	headers,
+}: Params<TResult, TVariables>): Promise<TResult> => {
 	if (!process.env.GRAPHQL_PRODUCTS_URL) {
 		throw TypeError("GRAPHQL_PRODUCTS_URL is not defined");
 	}
@@ -18,7 +30,10 @@ export const executeGraphql = async <TResult, TVariables>(
 			query,
 			variables,
 		}),
+		cache,
+		next,
 		headers: {
+			...headers,
 			"Content-Type": "application/json",
 		},
 	});

@@ -76,6 +76,15 @@
 				"name": "next/router",
 				"message": "Please use next/navigation instead."
 			}
+		],
+		// Server Actions `action={…}`
+		"@typescript-eslint/no-misused-promises": [
+			"error",
+			{
+				"checksVoidReturn": {
+					"attributes": false
+				}
+			}
 		]
 	},
 	"overrides": [

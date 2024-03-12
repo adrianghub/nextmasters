@@ -2,10 +2,10 @@ const withMDX = require("@next/mdx")();
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-	pageExtensions: ["tsx", "mdx"],
+	pageExtensions: ["ts", "tsx", "mdx"],
+	trailingSlash: true,
 	experimental: {
 		typedRoutes: true,
-		mdxRs: true,
 	},
 	images: {
 		remotePatterns: [

@@ -1,7 +1,7 @@
 import { type Metadata } from "next";
 import Link from "next/link";
-import { ProductCoverImage } from "@/app/(products)/_components/atoms/ProductCoverImage";
-import { ProductItemDescription } from "@/app/(products)/_components/atoms/ProductItemDescription";
+import { ProductCoverImage } from "../atoms/ProductCoverImage";
+import { ProductItemDescription } from "../atoms/ProductItemDescription";
 import { getProductById } from "@/lib/api/products";
 import { type ProductItemFragment } from "@/gql/graphql";
 

@@ -10,16 +10,22 @@ import {
 // GraphQL API (Alternative)
 
 export const getProducts = async ({ skip = 0, limit = 10 }: { skip?: number; limit?: number }) => {
-	const gqlResponse: ProductsGetQuery = await executeGraphql(ProductsGetDocument, {
-		take: limit,
-		skip,
+	const gqlResponse: ProductsGetQuery = await executeGraphql({
+		query: ProductsGetDocument,
+		variables: {
+			take: limit,
+			skip,
+		},
 	});
 
 	return gqlResponse.products.data;
 };
 
 export const getProductById = async (id: ProductItemFragment["id"]) => {
-	const gqlResponse: ProductGetByIdQuery = await executeGraphql(ProductGetByIdDocument, { id });
+	const gqlResponse: ProductGetByIdQuery = await executeGraphql({
+		query: ProductGetByIdDocument,
+		variables: { id },
+	});
 
 	return gqlResponse.product;
 };
