@@ -282,6 +282,14 @@ export type CartAddItemMutationVariables = Exact<{
 
 export type CartAddItemMutation = { cartAddItem: { id: string, items: Array<{ quantity: number, product: { id: string, name: string, description: string, price: number, categories: Array<{ name: string }>, images: Array<{ url: string }> } }> } };
 
+export type CartCompleteMutationVariables = Exact<{
+  cartId: Scalars['ID']['input'];
+  userEmail: Scalars['String']['input'];
+}>;
+
+
+export type CartCompleteMutation = { cartComplete: { createdAt: unknown, id: string, lines: unknown, status: OrderStatus, totalAmount: number, updatedAt: unknown } };
+
 export type CartFindOrCreateMutationVariables = Exact<{
   input?: InputMaybe<MutationCartFindOrCreateInput>;
   id?: InputMaybe<Scalars['ID']['input']>;
@@ -297,6 +305,13 @@ export type CartRemoveItemMutationVariables = Exact<{
 
 
 export type CartRemoveItemMutation = { cartRemoveItem: { id: string, items: Array<{ quantity: number, product: { id: string, name: string, description: string, price: number, categories: Array<{ name: string }>, images: Array<{ url: string }> } }> } };
+
+export type OrdersGetByEmailQueryVariables = Exact<{
+  email: Scalars['String']['input'];
+}>;
+
+
+export type OrdersGetByEmailQuery = { orders: { data: Array<{ updatedAt: unknown, totalAmount: number, status: OrderStatus, lines: unknown, id: string, createdAt: unknown }>, meta: { count: number, total: number } } };
 
 export type ProductGetByIdQueryVariables = Exact<{
   id: Scalars['ID']['input'];
@@ -367,6 +382,18 @@ export const CartAddItemDocument = new TypedDocumentString(`
   }
   price
 }`) as unknown as TypedDocumentString<CartAddItemMutation, CartAddItemMutationVariables>;
+export const CartCompleteDocument = new TypedDocumentString(`
+    mutation CartComplete($cartId: ID!, $userEmail: String!) {
+  cartComplete(cartId: $cartId, userEmail: $userEmail) {
+    createdAt
+    id
+    lines
+    status
+    totalAmount
+    updatedAt
+  }
+}
+    `) as unknown as TypedDocumentString<CartCompleteMutation, CartCompleteMutationVariables>;
 export const CartFindOrCreateDocument = new TypedDocumentString(`
     mutation CartFindOrCreate($input: MutationCartFindOrCreateInput = {}, $id: ID) {
   cartFindOrCreate(input: $input, id: $id) {
@@ -415,6 +442,24 @@ export const CartRemoveItemDocument = new TypedDocumentString(`
   }
   price
 }`) as unknown as TypedDocumentString<CartRemoveItemMutation, CartRemoveItemMutationVariables>;
+export const OrdersGetByEmailDocument = new TypedDocumentString(`
+    query OrdersGetByEmail($email: String!) {
+  orders(email: $email) {
+    data {
+      updatedAt
+      totalAmount
+      status
+      lines
+      id
+      createdAt
+    }
+    meta {
+      count
+      total
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<OrdersGetByEmailQuery, OrdersGetByEmailQueryVariables>;
 export const ProductGetByIdDocument = new TypedDocumentString(`
     query ProductGetById($id: ID!) {
   product(id: $id) {

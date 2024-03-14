@@ -1,9 +1,10 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import React from "react";
+import { SignInButton, SignedIn, SignedOut, currentUser } from "@clerk/nextjs";
 import { ProductQuantity } from "./_components/molecules/ProductQuantity";
 import RemoveProductButton from "./_components/atoms/RemoveProductButton";
-import { handlePaymantAction } from "./_actions/handlePayment.action";
+import { handlePaymentAction } from "./_actions/handlePaymentAction";
 import { formatCurrency } from "@/app/(core)/_utils/common";
 import { getCartById } from "@/lib/api/cart";
 import { Button } from "@/lib/ui/button";
@@ -15,11 +16,16 @@ const CartPage = async () => {
 		redirect("/");
 	}
 
-	const { cartFindOrCreate: cart } = await getCartById(cartId);
+	const user = await currentUser();
+	let userEmail = "";
 
-	if (!cart) {
-		redirect("/");
+	if (user) {
+		userEmail =
+			user?.emailAddresses.find((email) => email.id === user.primaryEmailAddressId)?.emailAddress ||
+			"";
 	}
+
+	const { cartFindOrCreate: cart } = await getCartById(cartId);
 
 	return (
 		<div>
@@ -52,9 +58,20 @@ const CartPage = async () => {
 					})}
 				</tbody>
 			</table>
-			<form action={handlePaymantAction}>
-				<Button type="submit">Make an order</Button>
-			</form>
+			<SignedIn>
+				<form
+					action={async () => {
+						"use server";
+
+						return handlePaymentAction(userEmail);
+					}}
+				>
+					<Button type="submit">Make an order</Button>
+				</form>
+			</SignedIn>
+			<SignedOut>
+				<SignInButton>Sign in to make an order</SignInButton>
+			</SignedOut>
 		</div>
 	);
 };

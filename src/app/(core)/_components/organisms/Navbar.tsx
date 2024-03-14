@@ -1,5 +1,6 @@
 import { ShoppingBag } from "lucide-react";
 import Link from "next/link";
+import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { ActiveLink } from "../atoms/ActiveLink";
 import { getCartFromCookies } from "@/lib/api/cart";
 
@@ -25,13 +26,28 @@ export const Navbar = async () => {
 								Products
 							</ActiveLink>
 						</li>
+						<SignedIn>
+							<li className="flex h-full items-center">
+								<ActiveLink href="/orders" className="flex items-center">
+									Orders
+								</ActiveLink>
+							</li>
+						</SignedIn>
 					</ul>
-					<Link href="/cart" className="flex items-center gap-1 hover:text-blue-600">
-						<span className="ml-2 text-sm font-medium">{productsQuantity}</span>
-						<span className="sr-only">items in cart, view cart</span>
+					<div className="flex items-center gap-2">
+						<Link href="/cart" className="flex items-center gap-1 hover:text-blue-600">
+							<span className="ml-2 text-sm font-medium">{productsQuantity}</span>
+							<span className="sr-only">items in cart, view cart</span>
 
-						<ShoppingBag />
-					</Link>
+							<ShoppingBag />
+						</Link>
+						<SignedIn>
+							<UserButton />
+						</SignedIn>
+						<SignedOut>
+							<SignInButton>Login</SignInButton>
+						</SignedOut>
+					</div>
 				</div>
 			</div>
 		</nav>

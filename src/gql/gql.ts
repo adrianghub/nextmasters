@@ -15,8 +15,10 @@ import * as types from './graphql';
  */
 const documents = {
     "mutation CartAddItem($id: ID!, $input: MutationCartAddItemInput!) {\n  cartAddItem(id: $id, input: $input) {\n    id\n    items {\n      product {\n        ...ProductItem\n      }\n      quantity\n    }\n  }\n}": types.CartAddItemDocument,
+    "mutation CartComplete($cartId: ID!, $userEmail: String!) {\n  cartComplete(cartId: $cartId, userEmail: $userEmail) {\n    createdAt\n    id\n    lines\n    status\n    totalAmount\n    updatedAt\n  }\n}": types.CartCompleteDocument,
     "mutation CartFindOrCreate($input: MutationCartFindOrCreateInput = {}, $id: ID) {\n  cartFindOrCreate(input: $input, id: $id) {\n    id\n    items {\n      product {\n        ...ProductItem\n      }\n      quantity\n    }\n  }\n}": types.CartFindOrCreateDocument,
     "mutation CartRemoveItem($id: ID!, $productId: ID!) {\n  cartRemoveItem(id: $id, productId: $productId) {\n    id\n    items {\n      product {\n        ...ProductItem\n      }\n      quantity\n    }\n  }\n}": types.CartRemoveItemDocument,
+    "query OrdersGetByEmail($email: String!) {\n  orders(email: $email) {\n    data {\n      updatedAt\n      totalAmount\n      status\n      lines\n      id\n      createdAt\n    }\n    meta {\n      count\n      total\n    }\n  }\n}": types.OrdersGetByEmailDocument,
     "query ProductGetById($id: ID!) {\n  product(id: $id) {\n    ...ProductItem\n  }\n}": types.ProductGetByIdDocument,
     "fragment ProductItem on Product {\n  id\n  name\n  description\n  categories {\n    name\n  }\n  images {\n    url\n  }\n  price\n}": types.ProductItemFragmentDoc,
     "query ProductsGet($take: Int!, $skip: Int!) {\n  products(take: $take, skip: $skip) {\n    data {\n      ...ProductItem\n    }\n  }\n}": types.ProductsGetDocument,
@@ -29,11 +31,19 @@ export function graphql(source: "mutation CartAddItem($id: ID!, $input: Mutation
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
+export function graphql(source: "mutation CartComplete($cartId: ID!, $userEmail: String!) {\n  cartComplete(cartId: $cartId, userEmail: $userEmail) {\n    createdAt\n    id\n    lines\n    status\n    totalAmount\n    updatedAt\n  }\n}"): typeof import('./graphql').CartCompleteDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
 export function graphql(source: "mutation CartFindOrCreate($input: MutationCartFindOrCreateInput = {}, $id: ID) {\n  cartFindOrCreate(input: $input, id: $id) {\n    id\n    items {\n      product {\n        ...ProductItem\n      }\n      quantity\n    }\n  }\n}"): typeof import('./graphql').CartFindOrCreateDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "mutation CartRemoveItem($id: ID!, $productId: ID!) {\n  cartRemoveItem(id: $id, productId: $productId) {\n    id\n    items {\n      product {\n        ...ProductItem\n      }\n      quantity\n    }\n  }\n}"): typeof import('./graphql').CartRemoveItemDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "query OrdersGetByEmail($email: String!) {\n  orders(email: $email) {\n    data {\n      updatedAt\n      totalAmount\n      status\n      lines\n      id\n      createdAt\n    }\n    meta {\n      count\n      total\n    }\n  }\n}"): typeof import('./graphql').OrdersGetByEmailDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

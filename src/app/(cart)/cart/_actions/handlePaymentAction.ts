@@ -2,8 +2,10 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import Stripe from "stripe";
 import { getCartFromCookies } from "@/lib/api/cart";
+import { executeGraphql } from "@/app/(core)/_utils/gql";
+import { CartCompleteDocument } from "@/gql/graphql";
 
-export const handlePaymantAction = async () => {
+export const handlePaymentAction = async (userEmail: string) => {
 	"use server";
 
 	if (!process.env.STRIPE_SECRET_KEY) {
@@ -44,6 +46,16 @@ export const handlePaymantAction = async () => {
 	if (!checkoutSession.url) {
 		throw new Error("checkoutSession.url is not defined");
 	}
+
+	const cartComplete = await executeGraphql({
+		query: CartCompleteDocument,
+		variables: {
+			cartId: cart.cartFindOrCreate.id,
+			userEmail,
+		},
+	});
+
+	console.log(cartComplete);
 
 	cookies().set("cartId", "", { expires: new Date(0) });
 

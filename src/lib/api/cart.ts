@@ -1,11 +1,11 @@
 import { cookies } from "next/headers";
+import {
+	CartAddItemDocument,
+	CartFindOrCreateDocument,
+	CartRemoveItemDocument,
+} from "./../../gql/graphql";
 import { getProductById } from "./products";
 import { executeGraphql } from "@/app/(core)/_utils/gql";
-import {
-	CartFindOrCreateDocument,
-	CartAddItemDocument,
-	CartRemoveItemDocument,
-} from "@/gql/graphql";
 
 export async function getOrCreateCart() {
 	try {
