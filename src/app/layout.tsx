@@ -5,6 +5,8 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { cn } from "./(core)/_utils/styles";
 import { Navbar } from "./(core)/_components/organisms/Navbar";
 
+export const runtime = "edge";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {

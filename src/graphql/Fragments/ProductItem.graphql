@@ -3,10 +3,23 @@ fragment ProductItem on Product {
 	name
 	description
 	categories {
+		id
 		name
+		slug
+		description
+	}
+	collections {
+		id
+		name
+		slug
+		description
 	}
 	images {
+		id
 		url
+		width
+		height
+		alt
 	}
 	price
 }

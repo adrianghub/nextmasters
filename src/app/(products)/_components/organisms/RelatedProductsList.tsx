@@ -4,7 +4,7 @@ import { getProducts } from "@/lib/api/products";
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export const RelatedProductsList = async () => {
-	const products = await getProducts({
+	const { data: products } = await getProducts({
 		limit: 4,
 	});
 

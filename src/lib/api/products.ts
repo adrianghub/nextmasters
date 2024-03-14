@@ -1,10 +1,10 @@
 import { executeGraphql } from "@/app/(core)/_utils/gql";
 import {
-	ProductGetByIdDocument,
-	type ProductGetByIdQuery,
-	ProductsGetDocument,
 	type ProductsGetQuery,
+	ProductsGetDocument,
 	type ProductItemFragment,
+	type ProductGetByIdQuery,
+	ProductGetByIdDocument,
 } from "@/gql/graphql";
 
 // GraphQL API (Alternative)
@@ -18,7 +18,7 @@ export const getProducts = async ({ skip = 0, limit = 10 }: { skip?: number; lim
 		},
 	});
 
-	return gqlResponse.products.data;
+	return gqlResponse.products;
 };
 
 export const getProductById = async (id: ProductItemFragment["id"]) => {

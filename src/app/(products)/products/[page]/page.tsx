@@ -3,12 +3,11 @@ import { Pagination } from "@/app/(core)/_components/organisms/Pagination";
 import { getProducts } from "@/lib/api/products";
 
 export default async function ProductsPage({ params }: { params: { page: string } }) {
-	const products = await getProducts({
+	const { meta, data: products } = await getProducts({
 		skip: (+params.page - 1) * 10,
 	});
-	const productsTotal = 14; // mocked
 
-	const numberOfPages = Math.ceil(productsTotal / 10);
+	const numberOfPages = Math.ceil(meta.total / 10);
 
 	return (
 		<>

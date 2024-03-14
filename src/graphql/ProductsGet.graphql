@@ -3,5 +3,9 @@ query ProductsGet($take: Int!, $skip: Int!) {
 		data {
 			...ProductItem
 		}
+		meta {
+			total
+			count
+		}
 	}
 }

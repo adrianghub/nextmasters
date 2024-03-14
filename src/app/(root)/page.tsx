@@ -2,10 +2,9 @@ import { ActiveLink } from "../../app/(core)/_components/atoms/ActiveLink";
 import { ProductsList } from "../(products)/_components/organisms/ProductsList";
 import { Button } from "@/lib/ui/button";
 import { getProducts } from "@/lib/api/products";
-import { type ProductItemFragment } from "@/gql/graphql";
 
 const HomePage = async () => {
-	const products: ProductItemFragment[] = await getProducts({
+	const { data: products } = await getProducts({
 		limit: 4,
 	});
 
