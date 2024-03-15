@@ -10,7 +10,7 @@ export const Navbar = async () => {
 	const productsQuantity = cart?.items.length ?? 0;
 
 	return (
-		<nav className="sticky top-0 bg-white/80 backdrop-blur-md">
+		<nav className="sticky top-0 z-10 bg-white/80 backdrop-blur-sm">
 			<div className="mx-auto h-[72px] max-w-6xl px-4">
 				<div className="flex h-full items-center justify-between">
 					<div className="flex-shrink-0">

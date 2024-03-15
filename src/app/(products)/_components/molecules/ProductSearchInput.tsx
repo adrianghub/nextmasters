@@ -1,18 +1,18 @@
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState, type ChangeEvent, useEffect } from "react";
 
 export const ProductSearchInput = () => {
 	const router = useRouter();
+	const pathname = usePathname();
 	const params = useSearchParams();
 	const [searchTerm, setSearchTerm] = useState<string>(params.get("query") || "");
 
 	useEffect(() => {
 		const term = searchTerm.trim();
-		if (!term) {
-			setSearchTerm("");
-			router.push(`/products`);
+		if (!term && pathname.startsWith("/products/search")) {
+			router.push("/products");
 			return;
 		}
 
@@ -23,7 +23,7 @@ export const ProductSearchInput = () => {
 		}, 300);
 
 		return () => clearTimeout(timer);
-	}, [router, searchTerm]);
+	}, [pathname, router, searchTerm]);
 
 	const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
 		setSearchTerm(event.target.value);

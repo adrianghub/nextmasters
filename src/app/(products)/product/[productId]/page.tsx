@@ -5,6 +5,7 @@ import { revalidateTag } from "next/cache";
 import AddToCartButton from "../../_components/atoms/AddToCartButton";
 import { ProductCoverImage } from "../../_components/atoms/ProductCoverImage";
 import { RelatedProductsList } from "../../_components/organisms/RelatedProductsList";
+import { ReviewsList } from "../../_components/organisms/ReviewsList";
 import { formatCurrency } from "@/app/(core)/_utils/common";
 import { getProductById } from "@/lib/api/products";
 import { addProductToCart, getOrCreateCart } from "@/lib/api/cart";
@@ -79,17 +80,13 @@ const SingleProductPage = async ({ params }: { params: { productId: string } }) 
 				<Suspense fallback={<p>Loading...</p>}>
 					<RelatedProductsList />
 				</Suspense>
+
+				<Suspense>
+					<ReviewsList productId={product.id} />
+				</Suspense>
 			</aside>
 		</>
 	);
 };
 
 export default SingleProductPage;
-
-// export const generateStaticParams = async () => {
-// 	const products = await getProducts();
-
-// 	return products.map((product: ProductItem) => ({
-// 		productId: product.id,
-// 	}));
-// };

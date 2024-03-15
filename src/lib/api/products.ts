@@ -5,6 +5,7 @@ import {
 	type ProductItemFragment,
 	type ProductGetByIdQuery,
 	ProductGetByIdDocument,
+	ProductGetReviewsDocument,
 } from "@/gql/graphql";
 
 // GraphQL API (Alternative)
@@ -37,6 +38,20 @@ export const getProductById = async (id: ProductItemFragment["id"]) => {
 	});
 
 	return gqlResponse.product;
+};
+
+export const getProductReviews = async (id: ProductItemFragment["id"]) => {
+	const gqlResponse = await executeGraphql({
+		query: ProductGetReviewsDocument,
+		variables: {
+			id,
+		},
+		next: {
+			tags: ["reviews"],
+		},
+	});
+
+	return gqlResponse.product?.reviews;
 };
 
 // REST API

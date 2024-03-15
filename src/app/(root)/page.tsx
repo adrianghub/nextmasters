@@ -12,7 +12,9 @@ const HomePage = async () => {
 		<div className="flex flex-col items-center gap-4">
 			<ProductsList products={products} />
 			<Button>
-				<ActiveLink href="/products">See all products</ActiveLink>
+				{/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+				{/* @ts-ignore */}
+				<ActiveLink href="/products/1">See all products</ActiveLink>
 			</Button>
 		</div>
 	);
