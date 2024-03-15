@@ -1,5 +1,5 @@
-query ProductsGet($take: Int!, $skip: Int!) {
-	products(take: $take, skip: $skip) {
+query ProductsGet($take: Int!, $skip: Int!, $search: String) {
+	products(take: $take, skip: $skip, search: $search) {
 		data {
 			...ProductItem
 		}

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { ActiveLink } from "../atoms/ActiveLink";
 import { getCartFromCookies } from "@/lib/api/cart";
+import { ProductSearchInput } from "@/app/(products)/_components/molecules/ProductSearchInput";
 
 export const Navbar = async () => {
 	const cart = await getCartFromCookies();
@@ -35,6 +36,8 @@ export const Navbar = async () => {
 						</SignedIn>
 					</ul>
 					<div className="flex items-center gap-2">
+						<ProductSearchInput />
+
 						<Link href="/cart" className="flex items-center gap-1 hover:text-blue-600">
 							<span className="ml-2 text-sm font-medium">{productsQuantity}</span>
 							<span className="sr-only">items in cart, view cart</span>

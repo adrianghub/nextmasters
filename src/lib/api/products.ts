@@ -9,12 +9,21 @@ import {
 
 // GraphQL API (Alternative)
 
-export const getProducts = async ({ skip = 0, limit = 10 }: { skip?: number; limit?: number }) => {
+export const getProducts = async ({
+	skip = 0,
+	limit = 10,
+	searchQuery,
+}: {
+	skip?: number;
+	limit?: number;
+	searchQuery?: string;
+}) => {
 	const gqlResponse: ProductsGetQuery = await executeGraphql({
 		query: ProductsGetDocument,
 		variables: {
 			take: limit,
 			skip,
+			search: searchQuery,
 		},
 	});
 
