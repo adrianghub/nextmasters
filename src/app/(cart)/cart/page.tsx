@@ -1,4 +1,3 @@
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import React from "react";
 import { SignInButton, SignedIn, SignedOut, currentUser } from "@clerk/nextjs";
@@ -6,13 +5,13 @@ import { ProductQuantity } from "./_components/molecules/ProductQuantity";
 import RemoveProductButton from "./_components/atoms/RemoveProductButton";
 import { handlePaymentAction } from "./_actions/handlePaymentAction";
 import { formatCurrency } from "@/app/(core)/_utils/common";
-import { getCartById } from "@/lib/api/cart";
+import { getCartFromCookies } from "@/lib/api/cart";
 import { Button } from "@/lib/ui/button";
 
 const CartPage = async () => {
-	const cartId = cookies().get("cartId")?.value;
+	const cart = await getCartFromCookies();
 
-	if (!cartId) {
+	if (!cart) {
 		redirect("/");
 	}
 
@@ -24,8 +23,6 @@ const CartPage = async () => {
 			user?.emailAddresses.find((email) => email.id === user.primaryEmailAddressId)?.emailAddress ||
 			"";
 	}
-
-	const { cartFindOrCreate: cart } = await getCartById(cartId);
 
 	return (
 		<div>
@@ -49,7 +46,7 @@ const CartPage = async () => {
 								<td>
 									<ProductQuantity quantity={item.quantity} productId={item.product.id} />
 								</td>
-								<td>{formatCurrency(item.product.price / 100)}</td>
+								<td>{formatCurrency((item.product.price / 100) * item.quantity)}</td>
 								<td>
 									<RemoveProductButton productId={item.product.id} />
 								</td>
@@ -66,7 +63,9 @@ const CartPage = async () => {
 						return handlePaymentAction(userEmail);
 					}}
 				>
-					<Button type="submit">Make an order</Button>
+					<Button type="submit" disabled={!cart.items.length}>
+						Make an order
+					</Button>
 				</form>
 			</SignedIn>
 			<SignedOut>

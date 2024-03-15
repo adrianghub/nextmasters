@@ -2,6 +2,7 @@ import { cookies } from "next/headers";
 import {
 	CartAddItemDocument,
 	CartFindOrCreateDocument,
+	CartItemUpdateQuantityDocument,
 	CartRemoveItemDocument,
 } from "./../../gql/graphql";
 import { getProductById } from "./products";
@@ -30,7 +31,7 @@ export async function getOrCreateCart() {
 			secure: process.env.NODE_ENV === "production",
 		});
 
-		return newCart;
+		return newCart.cartFindOrCreate;
 	} catch (error) {
 		console.error("Failed to get or create cart", error);
 	}
@@ -91,7 +92,7 @@ export async function removeProductFromCart(productId: string) {
 		await executeGraphql({
 			query: CartRemoveItemDocument,
 			variables: {
-				id: cart.cartFindOrCreate.id,
+				id: cart.id,
 				productId,
 			},
 			cache: "no-store",
@@ -109,10 +110,35 @@ export async function getCartFromCookies() {
 			const cart = await getCartById(cartId);
 
 			if (cart) {
-				return cart;
+				return cart.cartFindOrCreate;
 			}
 		}
 	} catch (error) {
 		console.error("Failed to get cart from cookies", error);
+	}
+}
+
+export async function changeCartItemQuantity(productId: string, quantity: number) {
+	const cart = await getCartFromCookies();
+
+	if (!cart) {
+		return;
+	}
+
+	try {
+		await executeGraphql({
+			query: CartItemUpdateQuantityDocument,
+			variables: {
+				id: cart.id,
+				productId,
+				quantity,
+			},
+			cache: "no-store",
+			next: {
+				tags: ["cart"],
+			},
+		});
+	} catch (error) {
+		console.error("Failed to change cart item quantity", error);
 	}
 }

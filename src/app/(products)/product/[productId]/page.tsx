@@ -43,7 +43,7 @@ const SingleProductPage = async ({ params }: { params: { productId: string } }) 
 			return;
 		}
 
-		await addProductToCart(cart.cartFindOrCreate.id, params.productId);
+		await addProductToCart(cart.id, params.productId);
 
 		revalidateTag("cart");
 	}

@@ -26,9 +26,9 @@ export const handlePaymentAction = async (userEmail: string) => {
 	const checkoutSession = await stripe.checkout.sessions.create({
 		payment_method_types: ["card", "blik", "p24"],
 		metadata: {
-			cartId: cart.cartFindOrCreate.id,
+			cartId: cart.id,
 		},
-		line_items: cart.cartFindOrCreate.items.map((item) => ({
+		line_items: cart.items.map((item) => ({
 			price_data: {
 				currency: "pln",
 				product_data: {
@@ -50,7 +50,7 @@ export const handlePaymentAction = async (userEmail: string) => {
 	const cartComplete = await executeGraphql({
 		query: CartCompleteDocument,
 		variables: {
-			cartId: cart.cartFindOrCreate.id,
+			cartId: cart.id,
 			userEmail,
 		},
 	});

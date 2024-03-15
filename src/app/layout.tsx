@@ -14,13 +14,7 @@ export const metadata: Metadata = {
 	description: "Storefront is a demo e-commerce site built with Next.js.",
 };
 
-export default function RootLayout({
-	children,
-	sidebar,
-}: {
-	children: React.ReactNode;
-	sidebar?: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<ClerkProvider>
 			<html lang="en" className="min-h-full">
@@ -34,8 +28,6 @@ export default function RootLayout({
 					<footer className="py-4 text-center text-sm text-gray-500">
 						© {new Date().getFullYear()}
 					</footer>
-
-					{sidebar}
 				</body>
 			</html>
 		</ClerkProvider>

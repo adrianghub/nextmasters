@@ -6,7 +6,7 @@ import { getCartFromCookies } from "@/lib/api/cart";
 
 export const Navbar = async () => {
 	const cart = await getCartFromCookies();
-	const productsQuantity = cart?.cartFindOrCreate.items.length ?? 0;
+	const productsQuantity = cart?.items.length ?? 0;
 
 	return (
 		<nav className="sticky top-0 bg-white/80 backdrop-blur-md">

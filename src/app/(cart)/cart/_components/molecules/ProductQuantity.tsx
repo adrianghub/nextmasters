@@ -1,10 +1,12 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
 "use client";
 
+// useOptimistic is not a part of the react library (canary)
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import { useOptimistic } from "react";
+import { changeProductQuantityAction } from "../../_actions/changeProductQuantityAction";
 import { Button } from "@/lib/ui/button";
 
 export const ProductQuantity = ({
@@ -14,12 +16,8 @@ export const ProductQuantity = ({
 	quantity: number;
 	productId: string;
 }) => {
-	const [optimisticQuantity, setOptimisticQuantity] = useOptimistic(
-		quantity,
-		(_state, newQuantity: number) => newQuantity,
-	);
-
-	console.log(productId);
+	// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
+	const [optimisticQuantity, setOptimisticQuantity] = useOptimistic(quantity);
 
 	return (
 		<form>
@@ -28,17 +26,18 @@ export const ProductQuantity = ({
 				variant="outline"
 				formAction={async () => {
 					setOptimisticQuantity(optimisticQuantity + 1);
-					// await changeItemQuantity(productId, optimisticQuantity + 1);
+					await changeProductQuantityAction(productId, optimisticQuantity + 1);
 				}}
 			>
 				+
 			</Button>
 			<Button
 				variant="outline"
+				disabled={optimisticQuantity === 1}
 				formAction={async () => {
-					if (optimisticQuantity > 0) {
+					if (optimisticQuantity > 1) {
 						setOptimisticQuantity(optimisticQuantity - 1);
-						// await changeItemQuantity(productId, optimisticQuantity + 1);
+						await changeProductQuantityAction(productId, optimisticQuantity - 1);
 					}
 				}}
 			>
